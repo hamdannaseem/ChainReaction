@@ -17,7 +17,7 @@ MonoBehaviour:
     x: 12
     y: 60
     width: 1575
-    height: 771
+    height: 743
   m_ShowMode: 4
   m_Title: Game
   m_RootView: {fileID: 3}
@@ -42,7 +42,7 @@ MonoBehaviour:
     x: 0
     y: 36
     width: 1575
-    height: 715
+    height: 687
   m_MinSize: {x: 200, y: 228}
   m_MaxSize: {x: 4000, y: 4028}
   m_ActualView: {fileID: 6}
@@ -67,7 +67,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1575
-    height: 771
+    height: 743
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 751
+    y: 723
     width: 1575
     height: 20
   m_MinSize: {x: 0, y: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
     x: 0
     y: 36
     width: 1575
-    height: 715
+    height: 687
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -196,22 +196,22 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 1575
-      height: 698
-    m_Scale: {x: 0.6462963, y: 0.6462963}
-    m_Translation: {x: 787.5, y: 349}
+      height: 694
+    m_Scale: {x: 0.6425926, y: 0.6425926}
+    m_Translation: {x: 787.5, y: 347}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1218.4813
+      x: -1225.5043
       y: -540
-      width: 2436.9626
+      width: 2451.0085
       height: 1080
     m_MinimalGUI: 1
-  m_defaultScale: 0.6462963
-  m_LastWindowPixelSize: {x: 1575, y: 719}
+  m_defaultScale: 0.6425926
+  m_LastWindowPixelSize: {x: 1575, y: 715}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000001000000000000
