@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 932113097681038956}
   - component: {fileID: 5244204215864450634}
   - component: {fileID: 8301300142932499958}
+  - component: {fileID: 7398264806134457734}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -98,7 +99,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523673311474399419}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 22f748adb88d33542900a779de7d23fc, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -139,3 +140,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7398264806134457734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523673311474399419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e445bb8cec19b6f4987afe5df84c28cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::React
+  force: 10

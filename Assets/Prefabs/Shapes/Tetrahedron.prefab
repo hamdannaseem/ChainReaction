@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3664459861821356218}
   - component: {fileID: 8594377261445549085}
   - component: {fileID: 6478692176718812760}
+  - component: {fileID: 7633300791759173734}
   m_Layer: 0
   m_Name: Tetrahedron
   m_TagString: Untagged
@@ -267,7 +268,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4452324612969191688}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 22f748adb88d33542900a779de7d23fc, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -309,3 +310,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7633300791759173734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452324612969191688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e445bb8cec19b6f4987afe5df84c28cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::React
+  force: 10
