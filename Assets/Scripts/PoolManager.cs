@@ -16,6 +16,7 @@ public class PoolManager : MonoBehaviour
         {
             InactivePools[i] = new Queue<GameObject>();
         }
+        UIManager.AccessInstance.SetCount(ActiveCount(), PoolSize);
     }
     public void Push(GameObject NewShape)
     {
@@ -24,6 +25,7 @@ public class PoolManager : MonoBehaviour
         {
             UIManager.AccessInstance.SetInteractable(false);
         }
+        UIManager.AccessInstance.SetCount(ActiveCount(), PoolSize);
     }
     public void Pop()
     {
@@ -33,9 +35,7 @@ public class PoolManager : MonoBehaviour
             UIManager.AccessInstance.SetInteractable(true);
         }
         GameObject LastShape = ActivePool[ActivePool.Count - 1];
-        ActivePool.RemoveAt(ActivePool.Count - 1);
-        LastShape.SetActive(false);
-        InactivePools[LastShape.GetComponent<PooledObject>().PrefabIdx].Enqueue(LastShape);
+        ReturnToPool(ActivePool.Count - 1);
     }
     public GameObject Dequeue(int PrefabIdx)
     {
@@ -52,5 +52,26 @@ public class PoolManager : MonoBehaviour
     public List<GameObject> GetActive()
     {
         return ActivePool;
+    }
+    public void Kill(GameObject Killed)
+    {
+        int Index = ActivePool.IndexOf(Killed);
+        if (Index != -1) ReturnToPool(Index);
+        if (ActiveCount() == 1)
+        {
+            ReactionManager.AccessInstance.StopReaction();
+        }
+    }
+    void ReturnToPool(int PrefabIdx)
+    {
+        GameObject ToReturn = ActivePool[PrefabIdx];
+        ActivePool.Remove(ToReturn);
+        ToReturn.SetActive(false);
+        Rigidbody rb = ToReturn.GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        ToReturn.GetComponent<ReactionObject>().ResetHealth();
+        InactivePools[ToReturn.GetComponent<PooledObject>().PrefabIdx].Enqueue(ToReturn);
+        UIManager.AccessInstance.SetCount(ActiveCount(), PoolSize);
     }
 }

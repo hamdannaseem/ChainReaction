@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -34,6 +34,7 @@ public class SpawnManager : MonoBehaviour
             pooledObject = NewShape.AddComponent<PooledObject>();
             pooledObject.PrefabIdx = PrefabIdx;
             pooledObject.Renderer = NewShape.GetComponent<Renderer>();
+            pooledObject.Name = NewShape.GetComponentInChildren<TextMeshPro>();
         }
         else
         {
@@ -42,13 +43,22 @@ public class SpawnManager : MonoBehaviour
         }
         NewShape.transform.position = SpawnPos;
         pooledObject.Renderer.sharedMaterial = Materials[Random.Range(0, Materials.Length)];
-        NewShape.transform.localScale = Prefabs[PrefabIdx].transform.localScale * SpawnSize;
+        NewShape.transform.localScale = DefaultSize(PrefabIdx) * SpawnSize;
+        pooledObject.Name.text = GetName(pooledObject, PrefabIdx);
         NewShape.SetActive(true);
         PoolManager.AccessInstance.Push(NewShape);
     }
     public void Spawn()
     {
         Spawn(Random.Range(0, Prefabs.Length));
+    }
+    Vector3 DefaultSize(int PrefabIdx)
+    {
+        return Prefabs[PrefabIdx].transform.localScale;
+    }
+    public string GetName(PooledObject pooledObject, int PrefabIdx)
+    {
+        return pooledObject.Renderer.sharedMaterial.name +" "+ Prefabs[PrefabIdx].name;
     }
     public void Remove()
     {

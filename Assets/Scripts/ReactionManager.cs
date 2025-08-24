@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,32 +9,47 @@ public class ReactionManager : MonoBehaviour
     [SerializeField] private List<GameObject> Environment;
     [SerializeField] private PhysicsMaterial Slippery, Grippy;
     private List<GameObject> ReactionComponents;
-    public bool ReactionStarted = false;
+    public bool Reacting = false;
+    public int ReactionTime;
+    Coroutine Reaction;
     void Start()
     {
         AccessInstance = this;
     }
     public void StartReaction()
     {
+        Physics.gravity = new Vector3(0, Physics.gravity.y*2, 0);
         ReactionComponents = Environment.Concat(PoolManager.AccessInstance.GetActive()).ToList();
-        ConstraintYAxis();
         SetPhysicsMaterial(Slippery);
-        ReactionStarted = true;
+        Reacting = true;
         UIManager.AccessInstance.SetInteractable(false);
+        Reaction=StartCoroutine(ReactionTimer());
+    }
+    IEnumerator ReactionTimer()
+    {
+        int remaining = ReactionTime;
+        UIManager UM=UIManager.AccessInstance;
+        while (remaining > 0 && Reacting)
+        {
+            yield return new WaitForSeconds(1);
+            remaining--;
+            UM.SetTime(remaining);
+        }
+        UM.SetScore(PoolManager.AccessInstance.ActiveCount()*5);
+        UM.SetScore(remaining*2);
+        StopReaction();
+    }
+    public void StopReaction()
+    {
+        SetPhysicsMaterial(Grippy);
+        Reacting = false;
+        Physics.gravity = new Vector3(0, Physics.gravity.y/2, 0);
     }
     void SetPhysicsMaterial(PhysicsMaterial physicsMaterial)
     {
         foreach (GameObject ReactionComponent in ReactionComponents)
         {
             ReactionComponent.GetComponent<Collider>().sharedMaterial = physicsMaterial;
-        }
-    }
-    void ConstraintYAxis()
-    {
-        foreach (GameObject Shape in PoolManager.AccessInstance.GetActive())
-        {
-            Rigidbody rb = Shape.GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezePositionY;
         }
     }
 }
