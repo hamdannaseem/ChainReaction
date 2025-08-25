@@ -12,38 +12,41 @@ public class ReactionManager : MonoBehaviour
     public bool Reacting = false;
     public int ReactionTime;
     Coroutine Reaction;
+    Vector3 DefaultGravity;
     void Start()
     {
         AccessInstance = this;
+        DefaultGravity=Physics.gravity;
     }
     public void StartReaction()
     {
-        Physics.gravity = new Vector3(0, Physics.gravity.y*2, 0);
+        Physics.gravity = new Vector3(0, Physics.gravity.y * 2, 0);
         ReactionComponents = Environment.Concat(PoolManager.AccessInstance.GetActive()).ToList();
         SetPhysicsMaterial(Slippery);
         Reacting = true;
         UIManager.AccessInstance.SetInteractable(false);
-        Reaction=StartCoroutine(ReactionTimer());
+        Reaction = StartCoroutine(ReactionTimer());
     }
     IEnumerator ReactionTimer()
     {
         int remaining = ReactionTime;
-        UIManager UM=UIManager.AccessInstance;
+        UIManager UM = UIManager.AccessInstance;
         while (remaining > 0 && Reacting)
         {
             yield return new WaitForSeconds(1);
             remaining--;
             UM.SetTime(remaining);
         }
-        UM.SetScore(PoolManager.AccessInstance.ActiveCount()*5);
-        UM.SetScore(remaining*2);
-        StopReaction();
+        UM.SetScore(PoolManager.AccessInstance.ActiveCount() * 5);
+        UM.SetScore(remaining * 2);
+        StopReaction(true);
     }
-    public void StopReaction()
+    public void StopReaction(bool won)
     {
-        SetPhysicsMaterial(Grippy);
+        if (Reacting) SetPhysicsMaterial(Grippy);
         Reacting = false;
-        Physics.gravity = new Vector3(0, Physics.gravity.y/2, 0);
+        Physics.gravity = DefaultGravity;
+        if(won)UIManager.AccessInstance.End();
     }
     void SetPhysicsMaterial(PhysicsMaterial physicsMaterial)
     {

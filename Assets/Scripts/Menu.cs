@@ -8,14 +8,15 @@ public class Menu : MonoBehaviour
     }
     public void Restart()
     {
-        ReactionManager.AccessInstance.StopReaction();
+        
+        UIManager UM = UIManager.AccessInstance;
+        UM.SetInteractable(true);
+        ReactionManager.AccessInstance.StopReaction(false);
         int Length = PoolManager.AccessInstance.ActiveCount();
         for (int i = 0; i < Length; i--)
         {
             PoolManager.AccessInstance.Pop();
         }
-        UIManager UM = UIManager.AccessInstance;
-        UM.SetInteractable(true);
         UM.SetScore(-UIManager.AccessInstance.Score);
         UM.SetTime(0);
     }

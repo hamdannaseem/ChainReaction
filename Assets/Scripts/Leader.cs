@@ -10,10 +10,16 @@ public class Leader : MonoBehaviour
     }
     public void SetScore(int score)
     {
-        Score.text = score+"";
+        Score.text = score + "";
     }
     public void SetTime(int time)
     {
-        Time.text = time+"";
+        Time.text = time + "";
+    }
+    public void HighLight()
+    {
+        Name.color = Color.green;
+        Score.color = Color.green;
+        Time.color = Color.green;
     }
 }

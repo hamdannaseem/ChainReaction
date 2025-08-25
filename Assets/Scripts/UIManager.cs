@@ -5,9 +5,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager AccessInstance;
-    public int Score;
+    public int Score, Time;
     [SerializeField] private Button[] SpawnButtons;
-    public TextMeshProUGUI CountText, ScoreText, TimeText;
+    [SerializeField] private TextMeshProUGUI CountText, ScoreText, TimeText, ScoreTitle;
+    [SerializeField] private GameObject EndUI;
     void Start()
     {
         AccessInstance = this;
@@ -34,6 +35,13 @@ public class UIManager : MonoBehaviour
     }
     public void SetTime(int value)
     {
+        Time = value;
         TimeText.text = "Time: " + value + "s";
+    }
+    public void End()
+    {
+        EndUI.SetActive(true);
+        ScoreTitle.text = "Score: " + Score;
+        LeaderBoard.AccessInstance.AddLeader(PlayerPrefs.GetString("CurrentPlayer","Anon"), Score, Time);
     }
 }

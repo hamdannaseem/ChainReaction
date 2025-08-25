@@ -59,7 +59,7 @@ public class PoolManager : MonoBehaviour
         if (Index != -1) ReturnToPool(Index);
         if (ActiveCount() == 1)
         {
-            ReactionManager.AccessInstance.StopReaction();
+            ReactionManager.AccessInstance.StopReaction(true);
         }
     }
     void ReturnToPool(int PrefabIdx)
