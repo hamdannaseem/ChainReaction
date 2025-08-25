@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     public int Score, Time;
     [SerializeField] private Button[] SpawnButtons;
     [SerializeField] private TextMeshProUGUI CountText, ScoreText, TimeText, ScoreTitle;
-    [SerializeField] private GameObject EndUI;
+    [SerializeField] private GameObject EndUI, TouchText;
     void Start()
     {
         AccessInstance = this;
@@ -42,6 +42,15 @@ public class UIManager : MonoBehaviour
     {
         EndUI.SetActive(true);
         ScoreTitle.text = "Score: " + Score;
-        LeaderBoard.AccessInstance.AddLeader(PlayerPrefs.GetString("CurrentPlayer","Anon"), Score, Time);
+        LeaderBoard.AccessInstance.AddLeader(PlayerPrefs.GetString("CurrentPlayer"), Score, Time);
+        Menu.Restart();
+    }
+    public void EndUIEnable(bool state)
+    {
+        EndUI.SetActive(state);
+    }
+    public void EnableTouch(bool state)
+    {
+        TouchText.SetActive(state);
     }
 }

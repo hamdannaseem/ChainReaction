@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager AccessInstance;
+    [SerializeField] private Settings settings;
     private Dictionary<int, Queue<GameObject>> InactivePools;
     private List<GameObject> ActivePool;
     public int PoolSize;
@@ -16,23 +18,28 @@ public class PoolManager : MonoBehaviour
         {
             InactivePools[i] = new Queue<GameObject>();
         }
+        PoolSize = settings.SpawnLimit;
         UIManager.AccessInstance.SetCount(ActiveCount(), PoolSize);
     }
     public void Push(GameObject NewShape)
     {
         ActivePool.Add(NewShape);
+        UIManager UM = UIManager.AccessInstance;
         if (ActivePool.Count == PoolSize)
         {
-            UIManager.AccessInstance.SetInteractable(false);
+            UM.SetInteractable(false);
+            UM.EnableTouch(true);
         }
-        UIManager.AccessInstance.SetCount(ActiveCount(), PoolSize);
+        UM.SetCount(ActiveCount(), PoolSize);
     }
     public void Pop()
     {
         if (ActivePool.Count == 0) { return; }
         if (ActivePool.Count == PoolSize)
         {
-            UIManager.AccessInstance.SetInteractable(true);
+            UIManager UM = UIManager.AccessInstance;
+            UM.SetInteractable(true);
+            UM.EnableTouch(false);
         }
         GameObject LastShape = ActivePool[ActivePool.Count - 1];
         ReturnToPool(ActivePool.Count - 1);

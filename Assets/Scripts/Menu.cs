@@ -2,11 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Game Scene");
-    }
-    public void Restart()
+    public static void Restart()
     {
         
         UIManager UM = UIManager.AccessInstance;
@@ -22,8 +18,9 @@ public class Menu : MonoBehaviour
     }
     public void ToMenu()
     {
+        UIManager.AccessInstance.EndUIEnable(false);
         Restart();
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("Menu Scene");
     }
     public void Quit()
     {
